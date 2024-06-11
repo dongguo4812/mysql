@@ -118,7 +118,7 @@ mysql> show variables like 'validate_password%';
 
 关于 validate_password 组件对应的系统变量说明：
 
-![image-20240522164426204](F:\note\image\image-20240522164426204.png)
+![image-20240522164426204](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110907090.png)
 
 提示： 组件和插件的默认值可能有所不同。例如，MySQL 5.7. validate_password_check_user_name的默认 值为OFF。
 
@@ -152,7 +152,7 @@ mysql> SELECT VALIDATE_PASSWORD_STRENGTH('K354*45jKd5');
 
 注意：如果没有安装validate_password组件或插件的话，那么这个函数永远都返回0。 关于密码复杂度对 应的密码复杂度策略。如下表格所示：
 
-![image-20240522164802107](F:\note\image\image-20240522164802107.png)
+![image-20240522164802107](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110907634.png)
 
 # 字符集的相关操作
 
@@ -287,7 +287,7 @@ alter database db1 character set 'utf8';
 alter table t_emp convert to character set 'utf8';
 ```
 
-![image-20240522170549531](F:\note\image\image-20240522170549531.png)
+![image-20240522170549531](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110907025.png)
 
 再次添加中文数据
 
@@ -417,7 +417,7 @@ MySQL版本一共支持41种字符集，其中的 Default collation 列表示这
 
 后缀表示该比较规则是否区分语言中的重音、大小写。具体如下：
 
-![image-20240522182525086](F:\note\image\image-20240522182525086.png)
+![image-20240522182525086](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110907649.png)
 
 最后一列 Maxlen ，它代表该种字符集表示一个字符最多需要几个字节。
 
@@ -582,7 +582,7 @@ SHOW CREATE DATABASE db1;
 ALTER DATABASE db1 DEFAULT CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 ```
 
-![image-20240522182855189](F:\note\image\image-20240522182855189.png)
+![image-20240522182855189](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110908789.png)
 
  `utf8mb3` 指的是 MySQL 过去所称的 `utf8` 编码，其实它支持最多3个字节的UTF-8字符。
 
@@ -599,11 +599,11 @@ show table status from db1 like 't_emp';
 ALTER TABLE t_emp DEFAULT CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 ```
 
-![image-20240522184003881](F:\note\image\image-20240522184003881.png)
+![image-20240522184003881](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110908964.png)
 
 ## 请求到响应过程中字符集的变化
 
-![image-20240522184742448](F:\note\image\image-20240522184742448.png)
+![image-20240522184742448](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110908744.png)
 
 这几个系统变量在我的计算机上的默认值如下（不同操作系统的默认值可能不同）：
 
@@ -667,7 +667,7 @@ SELECT * FROM t WHERE s = '我';
 
 总结图示如下：
 
-![image-20240522200716940](F:\note\image\image-20240522200716940.png)
+![image-20240522200716940](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110908115.png)
 
 
 
@@ -704,7 +704,7 @@ default-character-set=utf8
 
 Windows :
 
-![image-20240522202312523](F:\note\image\image-20240522202312523.png)
+![image-20240522202312523](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110908180.png)
 
 Linux :
 
@@ -823,11 +823,11 @@ select @@global.sql_mode;
 show variables like 'sql_mode';
 ```
 
-![image-20240522211938148](F:\note\image\image-20240522211938148.png)
+![image-20240522211938148](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110908304.png)
 
 
 
-![image-20240522211955201](F:\note\image\image-20240522211955201.png)
+![image-20240522211955201](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110908552.png)
 
 临时设置方式：设置当前窗口中设置sql_mode
 
@@ -864,7 +864,7 @@ _DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION
 
 当然生产环境上是禁止重启MySQL服务的，所以采用 临时设置方式 + 永久设置方式 来解决线上的问题， 那么即便是有一天真的重启了MySQL服务，也会永久生效了。
 
-![image-20240523091608975](F:\note\image\image-20240523091608975.png)
+![image-20240523091608975](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110909368.png)
 
 ## 宽松模式举例
 
@@ -878,7 +878,7 @@ INSERT INTO mytbl VALUES(4,'zhao6',34,102);
 INSERT INTO mytbl VALUES(5,'tian7',36,102);
 ```
 
-![image-20240523090615006](F:\note\image\image-20240523090615006.png)
+![image-20240523090615006](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110909888.png)
 
 ```sql
 #查询每个部门年龄最大的人
@@ -887,4 +887,4 @@ set SESSION sql_mode = '';
 SELECT NAME,dept,MAX(age) FROM mytbl GROUP BY dept;
 ```
 
-![image-20240523090843252](F:\note\image\image-20240523090843252.png)
+![image-20240523090843252](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110909307.png)

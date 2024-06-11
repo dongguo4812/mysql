@@ -10,7 +10,7 @@ InnoDB 将数据划分为若干个页，InnoDB中页的大小默认为 16KB.
 
 记录是按照行来存储的，但是数据库的读取并不以行为单位，否则一次读取（也就是一次1/0操作）只能处理一行数据，效率会非常低。
 
-![image-20240529135458043](F:\note\image\image-20240529135458043.png)
+![image-20240529135458043](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110901298.png)
 
 ## 页结构概述
 
@@ -36,7 +36,7 @@ SQL Server中页的大小为8KB ,而在Oracle中我们用术语“块” (Block)
 
 另外在数据库中,还存在着区(Extent) 、段(Segment)和表空间(Tablespace)的概念。行、页、区、段、表空间的关系如下图所示:
 
-![image-20240529140048907](F:\note\image\image-20240529140048907.png)
+![image-20240529140048907](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110901404.png)
 
 区(Extent)是比页大一级的存储结构,在InnoDB存储引擎中,一个区会分配64个连续的页。因为InnoDB中的页大小默认是16KB,所以一个区的大小是64*16KB= 1MB。
 
@@ -52,11 +52,11 @@ SQL Server中页的大小为8KB ,而在Oracle中我们用术语“块” (Block)
 
 页结构的示意图如下所示：
 
-![image-20240529140646275](F:\note\image\image-20240529140646275.png)
+![image-20240529140646275](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110901964.png)
 
 这7个部分作用分别如下，我们简单梳理如下表所示：
 
-![image-20240529140726873](F:\note\image\image-20240529140726873.png)
+![image-20240529140726873](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110901767.png)
 
 我们可以把这7个结构分成3个部分。
 
@@ -68,7 +68,7 @@ SQL Server中页的大小为8KB ,而在Oracle中我们用术语“块” (Block)
 
 描述各种页的通用信息。（比如页的编号、其上一页、下一页是谁等）
 
-![image-20240529141637063](F:\note\image\image-20240529141637063.png)
+![image-20240529141637063](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110901697.png)
 
 #### FIL_PAGE_OFFSET（4字节）
 
@@ -78,19 +78,19 @@ SQL Server中页的大小为8KB ,而在Oracle中我们用术语“块” (Block)
 
 这个代表当前页的类型。
 
-![image-20240529141806746](F:\note\image\image-20240529141806746.png)
+![image-20240529141806746](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110901788.png)
 
 #### FIL_PAGE_PREV（4字节）和FIL_PAGE_NEXT（4字节）
 
 InnoDB都是以页为单位存放数据的，如果数据分散到多个不连续的页中存储的话需要把这些页关联起来，FIL_PAGE_PREV和FIL_PAGE_NEXT就分别代表本页的上一个和下一个页的页号。这样通过建立一个双向链表把许许多多的页就都串联起来了，保证这些页之间不需要是物理上的连续，而是逻辑上的连续。
 
-![image-20240529141842186](F:\note\image\image-20240529141842186.png)
+![image-20240529141842186](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110902872.png)
 
 
 
 
 
-![image-20240529141041070](F:\note\image\image-20240529141041070.png)
+![image-20240529141041070](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110902430.png)
 
 #### FIL_PAGE_SPACE_OR_CHKSUM（4字节）
 
@@ -129,7 +129,7 @@ InnoDB存储引擎以页为单位把数据加载到内存中处理，如果该�
 
 我们自己存储的记录会按照指定的行格式存储到User Records部分。但是在一开始生成页的时候，其实并没有User Records这个部分，每当我们插入一条记录，都会从Free Space部分，也就是尚未使用的存储空间中申请一个记录大小的空间划分到User Records部分，当Free Space部分的空间全部被User Records部分替代掉之后，也就意味着这个页使用完了，如果还有新的记录插入的话，就需要去申请新的页了。
 
-![image-20240529142116897](F:\note\image\image-20240529142116897.png)
+![image-20240529142116897](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110902704.png)
 
 ### User Records (用户记录)
 
@@ -145,11 +145,11 @@ User Records中的这些记录按照指定的行格式一条一条摆在User Rec
 
 InnoDB规定的最小记录与最大记录这两条记录的构造十分简单，都是由5字节大小的记录头信息和8字节大小的一个固定的部分组成的，如图所示：
 
-![image-20240529142204378](F:\note\image\image-20240529142204378.png)
+![image-20240529142204378](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110902822.png)
 
 这两条记录不是我们自己定义的记录，所以它们并不存放在页的User Records部分，他们被单独放在一个称为Infimum + Supremum的部分，如图所示：
 
-![image-20240529142241124](F:\note\image\image-20240529142241124.png)
+![image-20240529142241124](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110902535.png)
 
 ## 第3部分 Page Directory（页目录）、Page Header（页面头部）
 
@@ -176,12 +176,12 @@ SELECT * FROM page_demo WHERE c1 = 3;
 
 举例1：
 
-![image-20240529143318215](F:\note\image\image-20240529143318215.png)
+![image-20240529143318215](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110902403.png)
 
 举例2：
 现在的page_demo表中正常的记录共有6条，InnoDB会把它们分成两组，第一组中只有一个最小记录，第二组中是剩余的5条记录。如下图：
 
-![image-20240529143331265](F:\note\image\image-20240529143331265.png)
+![image-20240529143331265](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110903653.png)
 
 
 从这个图中我们需要注意这么几点：
@@ -192,11 +192,11 @@ SELECT * FROM page_demo WHERE c1 = 3;
 
 用箭头指向的方式替代数字，这样更易于我们理解，修改后如下：
 
-![image-20240529143340552](F:\note\image\image-20240529143340552.png)
+![image-20240529143340552](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110903783.png)
 
 再换个角度看一下：（单纯从逻辑上看一下这些记录和页目录的关系）
 
- ![image-20240529143351003](F:\note\image\image-20240529143351003.png)
+ ![image-20240529143351003](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110903125.png)
 
 ####  页目录分组的个数如何确定？
 
@@ -228,7 +228,7 @@ VALUES
 (16, 1600, 'quan');
 添加了12条记录，现在页里一共有18条记录了（包括最小和最大记录），这些记录被分成了5个组，如图所示：
 
-![image-20240529142433069](F:\note\image\image-20240529142433069.png)
+![image-20240529142433069](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110903700.png)
 
 这里只保留了16条记录的记录头信息中的n_owned和next_record属性，省略了各个记录之间的箭头。
 现在看怎么从这个页目录中查找记录。因为各个槽代表的记录的主键值都是从小到大排序的，所以我们可以使用二分法来进行快速查找。5个槽的编号分别是：0、1、2、3、4，所以初始情况下最低的槽就是low=0，最高的槽就是high=4。比方说我们想找主键值为6的记录，过程是这样的：
@@ -248,7 +248,7 @@ VALUES
 
 为了能得到一个数据页中存储的记录的状态信息，比如本页中已经存储了多少条记录，第一条记录的地址是什么，页目录中存储了多少个槽等等，特意在页中定义了一个叫Page Header的部分，这个部分占用固定的56个字节，专门存储各种状态信息。
 
-![image-20240529142538256](F:\note\image\image-20240529142538256.png)
+![image-20240529142538256](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110903371.png)
 
 #### PAGE_DIRECTION
 
@@ -267,15 +267,15 @@ VALUES
 1. 叶子节点，B+ 树最底层的节点，节点的高度为 0，存储行记录。
 2. 非叶子节点，节点的高度大于 0,存储索引键和页面指针,并不存储行记录本身。
 
-![image-20240529143503277](F:\note\image\image-20240529143503277.png)
+![image-20240529143503277](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110903363.png)
 
 当我们从页结构来理解 B+树的结构的时候，可以帮我们理解一些通过索引进行检索的原理：
 
-![image-20240529143533244](F:\note\image\image-20240529143533244.png)
+![image-20240529143533244](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110904054.png)
 
 
 
-![image-20240529143551556](F:\note\image\image-20240529143551556.png)
+![image-20240529143551556](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110904727.png)
 
 # InnoDB行格式（或记录格式）
 
@@ -333,7 +333,7 @@ VALUES
 
 在MySQL 5.1版本中，默认设置为Compact行格式。一条完整的记录其实可以被分为记录的额外信息和记录的真实数据两大部分。
 
-![image-20240529144432270](F:\note\image\image-20240529144432270.png)
+![image-20240529144432270](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110911728.png)
 
 ### 变长字段长度列表
 
@@ -343,14 +343,14 @@ MySQL支持一些变长的数据类型，比如VARCHAR(M)、VARBINARY(M)、TEXT�
 
 以record_test_table表中的第一条记录举例：因为record_test_table表的col1、col2、col4列都是VARCHAR(8)类型的，所以这三个列的值的长度都需要保存在记录开头处，注意record_test_table表中的各个列都使用的是ascii字符集（每个字符只需要1个字节来进行编码）。
 
-![image-20240529144458893](F:\note\image\image-20240529144458893.png)
+![image-20240529144458893](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110909182.png)
 
 又因为这些长度值需要按照列的逆序存放，所以最后变长字段长度列表的字节串用十六进制表示的效果就是（各个字节之间实际上没有空格，用空格隔开只是方便理解）：
 06 04 08 
 
 把这个字节串组成的变长字段长度列表填入上边的示意图中的效果就是：
 
-![image-20240529144511819](F:\note\image\image-20240529144511819.png)
+![image-20240529144511819](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110909022.png)
 
 ### NULL值列表
 
@@ -367,11 +367,11 @@ record_test_table的两条记录的NULL值列表就如下：
 
 第一条记录：
 
-![image-20240529144538290](F:\note\image\image-20240529144538290.png)
+![image-20240529144538290](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110909597.png)
 
 第二条记录：
 
-![image-20240529144554948](F:\note\image\image-20240529144554948.png)
+![image-20240529144554948](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110910345.png)
 
 ### 记录头信息（5字节）
 
@@ -387,15 +387,15 @@ Query OK, 0 rows affected (0.03 sec)
 
 这个表中记录的行格式示意图：
 
-![image-20240529144651374](F:\note\image\image-20240529144651374.png)
+![image-20240529144651374](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110910780.png)
 
 这些记录头信息中各个属性如下：
 
-![image-20240529144711381](F:\note\image\image-20240529144711381.png)
+![image-20240529144711381](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110910160.png)
 
 简化后的行格式示意图：
 
-![image-20240529144728563](F:\note\image\image-20240529144728563.png)
+![image-20240529144728563](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110910217.png)
 
 插入数据：
 
@@ -410,7 +410,7 @@ VALUES
 
 图示如下：
 
-![image-20240529144803949](F:\note\image\image-20240529144803949.png)
+![image-20240529144803949](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110910860.png)
 
 #### delete_mask
 
@@ -459,7 +459,7 @@ MySQL会自动给每个页里加了两个记录，由于这两个记录并不是
 比如：第一条记录的next_record值为32，意味着从第一条记录的真实数据的地址处向后找32个字节便是下一条记录的真实数据。
 注意，下一条记录指得并不是按照我们插入顺序的下一条记录，而是按照主键值由小到大的顺序的下一条记录。而且规定Infimum记录（也就是最小记录）的下一条记录就是本页中主键值最小的用户记录，而本页中主键值最大的用户记录的下一条记就是 Supremum记录（也就是最大记录）。下图用箭头代替偏移量表示next_record。
 
-![image-20240529144952715](F:\note\image\image-20240529144952715.png)
+![image-20240529144952715](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110911196.png)
 
 ##### 演示：删除操作
 
@@ -469,7 +469,7 @@ mysql> DELETE FROM page_demo WHERE c1 = 2;
 Query OK, 1 row affected (0.02 sec)
 删掉第2条记录后的示意图就是：
 
-![image-20240529145029109](F:\note\image\image-20240529145029109.png)
+![image-20240529145029109](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110911850.png)
 
 从图中可以看出来，删除第2条记录前后主要发生了这些变化：
 - 第2条记录并没有从存储空间中移除，而是把该条记录的delete_mask值设置为1。
@@ -488,7 +488,7 @@ Query OK, 1 row affected (0.00 sec)
 
 我们看一下记录的存储情况：
 
-![image-20240529145059574](F:\note\image\image-20240529145059574.png)
+![image-20240529145059574](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110911599.png)
 
 直接复用了原来被删除记录的存储空间。
 
@@ -499,7 +499,7 @@ Query OK, 1 row affected (0.00 sec)
 
 记录的真实数据除了我们自己定义的列的数据以外，还会有三个隐藏列：
 
-![image-20240529145137714](F:\note\image\image-20240529145137714.png)
+![image-20240529145137714](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110911145.png)
 
 实际上这几个列的真正名称其实是：DB_ROW_ID、DB_TRX_ID、DB_ROLL_PTR。
 一个表没有手动定义主键，则会选取一个Unique键作为主键，如果连Unique键都没有定义的话，则会为表默认添加一个名为row_id的隐藏列作为主键。所以row_id是在没有自定义主键以及Unique键的情况下才会存在的。
@@ -605,7 +605,7 @@ CREATE  TABLE  varchar_size_demo(
 在Compact和Reduntant行格式中，对于占用存储空间非常大的列，在记录的真实数据处只会存储该列的一部分数据，把剩余的数据分散存储在几个其他的页中进行分页存储，然后记录的真实数据处用20个字节存储指向这些页的地址（当然这20个字节中还包括这些分散在其他页面中的数据的占用的字节数），从而可以找到剩余数据所在的页。
 这称为页的扩展，举例如下：
 
- ![image-20240529145327996](F:\note\image\image-20240529145327996.png)
+ ![image-20240529145327996](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110909544.png)
 
  
 
@@ -618,7 +618,7 @@ Compact和Redundant两种格式会在记录的真实数据处存储一部分数�
 
 Compressed行记录格式的另一个功能就是，存储在其中的行数据会以zlib的算法进行压缩，因此对于BLOB、TEXT、VARCHAR这类大长度类型的数据能够进行非常有效的存储。
 
-![image-20240529145359713](F:\note\image\image-20240529145359713.png)
+![image-20240529145359713](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110911065.png)
 
 ## Redundant行格式
 
@@ -632,7 +632,7 @@ Query OK, 0 rows affected (0.05 sec)
 Records: 0  Duplicates: 0  Warnings: 0
 ```
 
-![image-20240529145441931](F:\note\image\image-20240529145441931.png)
+![image-20240529145441931](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110912211.png)
 
 从上图可以看到，不同于Compact行记录格式，Redundant行格式的首部是一个字段长度偏移列表，同样是按照列的顺序逆序放置的。
 
@@ -782,18 +782,18 @@ InnoDB数据字典
 
 先要校验一下插入语句对应的表存不存在，插入的列和表中的列是否符合，如果语法没有问题的话，还需要知道该表的聚簇索引和所有二级索引对应的根页面是哪个表空间的哪个页面,然后把记录插入对应索引的B+树中。所以说，MySQL除了保存着我们插入的用户数据之外，还需要保存许多额外的信息，比方说：
 
-![image-20240529151141691](F:\note\image\image-20240529151141691.png)
+![image-20240529151141691](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110912283.png)
 
 上述这些数据并不是我们使用INSERT语句插入的用户数据,实际上是为了更好的管理我们这些用户数据而不得已引入的一些额外数据,这些数据也称为元数据。InnoDB存储引擎特意定义了一些列的内部系统表(internalsystem table)来记录这些这些元数据：
 
-![image-20240529151230509](F:\note\image\image-20240529151230509.png)
+![image-20240529151230509](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110912386.png)
 
 这些系统表也被称为数据字典,它们都是以B+树的形式保存在系统表空间的某些页面中,其中SYS-TABLES、SYS_COLUMNS, SYS_INDEXES, SYS_FIELDS这四个表尤其重要,称之为基本系统表(basic system tables)我们先看看这4个表的结构：
 
-![image-20240529151314193](F:\note\image\image-20240529151314193.png)
+![image-20240529151314193](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110912295.png)
 
 注意:用户是不能直接访问InnoDB的这些内部系统表,除非你直接去解析系统表空间对应文件系统上的文件。不过考虑到查看这些表的内容可能有助于大家分析问题,所以在系统数据库information_schema中提供了一些以 innodb_sys 开头的表：
 
-![image-20240529151351095](F:\note\image\image-20240529151351095.png)
+![image-20240529151351095](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110912046.png)
 
 在information_schema数据库中的这些以INNODB-SYS开头的表并不是真正的内部系统表(内部系统表就是我们上边以SYs开头的那些表),而是在存储引擎启动时读取这些以sYs开头的系统表,然后填充到这些以INNODB_SYS 开头的表中。以 INNODB_SYS 开头的表和以SYS开头的表中的字段并不完全一样，但供大家参考已经足矣。

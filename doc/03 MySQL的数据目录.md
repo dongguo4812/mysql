@@ -6,7 +6,7 @@
 find / -name mysql
 ```
 
-![image-20240523100455680](F:\note\image\image-20240523100455680.png)
+![image-20240523100455680](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110905803.png)
 
 
 
@@ -28,23 +28,23 @@ mysql> show variables like 'datadir';
 
 相关命令目录：/usr/bin（mysqladmin、mysqlbinlog、mysqldump等命令）和/usr/sbin。
 
-![image-20240523103331954](F:\note\image\image-20240523103331954.png)
+![image-20240523103331954](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110905979.png)
 
 
 
 
 
-![image-20240523103355789](F:\note\image\image-20240523103355789.png)
+![image-20240523103355789](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110906728.png)
 
 ## 配置文件目录
 
 配置文件目录：/usr/share/mysql-8.0（命令及配置文件），/etc（如my.cnf）
 
-![image-20240523103224806](F:\note\image\image-20240523103224806.png)
+![image-20240523103224806](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110906999.png)
 
 
 
-![image-20240523103537697](F:\note\image\image-20240523103537697.png)
+![image-20240523103537697](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110906798.png)
 
 # 数据库和文件系统的关系
 
@@ -152,13 +152,13 @@ MySQL 系统自带的数据库，这个数据库主要是通过 视图 的形式
 
 ## 数据库在文件系统中的表示
 
-![image-20240523105413185](F:\note\image\image-20240523105413185.png)
+![image-20240523105413185](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110906226.png)
 
 /var/lib/mysql这个数据目录下的文件和子目录比较多，除了 information_schema 这个系统数据库外，其他的数据库 在 数据目录 下都有对应的子目录。
 
 以db1数据库为例，在MySQL5.7 中打开：
 
-![image-20240523105614613](F:\note\image\image-20240523105614613.png)
+![image-20240523105614613](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110906316.png)
 
 1. **`db.opt`**:
    - **描述**: 这个文件包含数据库的选项和设置。通常，这包括默认字符集和排序规则等设置。
@@ -172,7 +172,7 @@ MySQL 系统自带的数据库，这个数据库主要是通过 视图 的形式
 
 在MySQL8.0中打开：
 
-![image-20240523105641040](F:\note\image\image-20240523105641040.png)
+![image-20240523105641040](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110906312.png)
 
 `.ibd` 文件是 InnoDB 存储引擎使用的独立表空间文件，它们包含了表的数据和索引。
 

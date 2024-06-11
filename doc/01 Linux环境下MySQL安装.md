@@ -16,11 +16,11 @@ Linux系统下安装软件的常用三种方式：
 
 官网地址：https://dev.mysql.com/downloads/mysql/
 
-![image-20240522113025731](F:\note\image\image-20240522113025731.png)
+![image-20240522113025731](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110913752.png)
 
 选择对应版本，这里进去默认是最新的版本，如果想要下载之前的版本的话，可以点击旁边的**Archives**里面查找，下载**RPM Bundle**版本。
 
-![image-20240522113234267](F:\note\image\image-20240522113234267.png)
+![image-20240522113234267](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110913194.png)
 
 可以下载完成后使用Xftp等工具传输到自己安装的路径下，
 
@@ -32,7 +32,7 @@ wget https://dev.mysql.com/get/Downloads/MySQL-8.0/mysql-8.0.35-1.el7.x86_64.rpm
 
 将下载的mysql放在/opt目录下
 
-![image-20240522114527458](F:\note\image\image-20240522114527458.png)
+![image-20240522114527458](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110904532.png)
 
 ### 解压文件
 
@@ -40,7 +40,7 @@ wget https://dev.mysql.com/get/Downloads/MySQL-8.0/mysql-8.0.35-1.el7.x86_64.rpm
 tar -xvf mysql-8.0.35-1.el7.x86_64.rpm-bundle.tar
 ```
 
-![image-20240522133251529](F:\note\image\image-20240522133251529.png)
+![image-20240522133251529](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110904357.png)
 
 ### 使用rpm 安装
 
@@ -64,7 +64,7 @@ rpm -ivh mysql-community-server-8.0.35-1.el7.x86_64.rpm
 
 其他包如 `mysql-community-devel`, `mysql-community-embedded-compat`, `mysql-community-libs-compat`, `mysql-community-test`, 和 `mysql-community-server-debug` 可以根据需要安装。
 
-![image-20240522135515488](F:\note\image\image-20240522135515488.png)
+![image-20240522135515488](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110904585.png)
 
 #### 卸载mariadb
 
@@ -82,7 +82,7 @@ mariadb-libs-5.5.68-1.el7.x86_64
 mysql --version
 ```
 
-![image-20240522135849403](F:\note\image\image-20240522135849403.png)
+![image-20240522135849403](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110907905.png)
 
 执行如下命令，查看这些包是否安装成功。需要增加 -i 不用去区分大小写，否则搜索不到。
 
@@ -90,7 +90,7 @@ mysql --version
 rpm -qa|grep -i mysql
 ```
 
-![image-20240522140303971](F:\note\image\image-20240522140303971.png)
+![image-20240522140303971](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110907100.png)
 
 ## 服务的初始化
 
@@ -110,7 +110,7 @@ cat /var/log/mysqld.log
 je)ea67,7s#G
 ```
 
-![image-20240522141015661](F:\note\image\image-20240522141015661.png)
+![image-20240522141015661](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110907072.png)
 
 ##  启动MySQL，查看状态
 
@@ -125,7 +125,7 @@ systemctl restart mysqld
 systemctl status mysqld
 ```
 
-![image-20240522141345430](F:\note\image\image-20240522141345430.png)
+![image-20240522141345430](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110914784.png)
 
 ### MySQL服务开机自启动
 
@@ -135,7 +135,7 @@ systemctl status mysqld
 systemctl list-unit-files|grep mysqld
 ```
 
-![image-20240522142041270](F:\note\image\image-20240522142041270.png)
+![image-20240522142041270](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110906973.png)
 
 mysqld.service默认是enabled。
 
@@ -159,7 +159,7 @@ systemctl disable mysqld
 mysql -uroot -p
 ```
 
-![image-20240522142651971](F:\note\image\image-20240522142651971.png)
+![image-20240522142651971](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110906450.png)
 
 密码为 je)ea67,7s#G
 
@@ -171,7 +171,7 @@ mysql -uroot -p
 ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'root';
 ```
 
-![image-20240522145527227](F:\note\image\image-20240522145527227.png)
+![image-20240522145527227](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110914454.png)
 
 在 MySQL 8.0 版本中，默认的身份验证插件被更改为 `caching_sha2_password`，许多旧版本的客户端、库和应用程序可能尚未更新以支持 `caching_sha2_password` 插件。如果应用程序无法进行身份验证，可能会导致连接问题。
 
@@ -186,7 +186,7 @@ use mysql;
 select Host,User from user;
 ```
 
-![image-20240522144824836](F:\note\image\image-20240522144824836.png)
+![image-20240522144824836](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110912661.png)
 
 修改Host为通配符%， Host=% ，表示所有IP都有连接权限。
 
@@ -202,11 +202,11 @@ Host修改完成后记得执行flush privileges使配置立即生效：
 flush privileges;
 ```
 
-![image-20240522145613519](F:\note\image\image-20240522145613519.png)
+![image-20240522145613519](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110912197.png)
 
 ### 远程连接
 
-![image-20240522145751444](F:\note\image\image-20240522145751444.png)
+![image-20240522145751444](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110912097.png)
 
 # MySQL5.7
 
@@ -214,7 +214,7 @@ flush privileges;
 
 官网地址：https://dev.mysql.com/downloads/mysql/
 
-![image-20240522151324490](F:\note\image\image-20240522151324490.png)
+![image-20240522151324490](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110913019.png)
 
 或者使用wget命令进行下载。
 
@@ -224,7 +224,7 @@ wget https://dev.mysql.com/get/Downloads/MySQL-8.0/mysql-5.7.28-1.el7.x86_64.rpm
 
 将下载的mysql放在/opt目录下
 
-![image-20240522152527468](F:\note\image\image-20240522152527468.png)
+![image-20240522152527468](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110913529.png)
 
 ### 解压文件
 
@@ -232,7 +232,7 @@ wget https://dev.mysql.com/get/Downloads/MySQL-8.0/mysql-5.7.28-1.el7.x86_64.rpm
 tar -xvf mysql-5.7.28-1.el7.x86_64.rpm-bundle.tar
 ```
 
-![image-20240522152653692](F:\note\image\image-20240522152653692.png)
+![image-20240522152653692](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110913339.png)
 
 ### 使用rpm 安装
 
@@ -257,7 +257,7 @@ rpm -ivh mysql-community-client-5.7.28-1.el7.x86_64.rpm
 rpm -ivh mysql-community-server-5.7.28-1.el7.x86_64.rpm
 ```
 
-![image-20240522153124949](F:\note\image\image-20240522153124949.png)
+![image-20240522153124949](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110913607.png)
 
 ### 查看已安装的 MySQL 的版本
 
@@ -265,7 +265,7 @@ rpm -ivh mysql-community-server-5.7.28-1.el7.x86_64.rpm
 mysql --version
 ```
 
-![image-20240522153139788](F:\note\image\image-20240522153139788.png)
+![image-20240522153139788](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110913250.png)
 
 执行如下命令，查看这些包是否安装成功。需要增加 -i 不用去区分大小写，否则搜索不到。
 
@@ -273,7 +273,7 @@ mysql --version
 rpm -qa|grep -i mysql
 ```
 
-![image-20240522153219459](F:\note\image\image-20240522153219459.png)
+![image-20240522153219459](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110913877.png)
 
 ## 服务的初始化
 
@@ -293,7 +293,7 @@ cat /var/log/mysqld.log
 jm6y;qGw.k_z
 ```
 
-![image-20240522153607909](F:\note\image\image-20240522153607909.png)
+![image-20240522153607909](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110914297.png)
 
 ## 启动MySQL，查看状态
 
@@ -308,7 +308,7 @@ systemctl restart mysqld
 systemctl status mysqld
 ```
 
-![image-20240522153654083](F:\note\image\image-20240522153654083.png)
+![image-20240522153654083](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110914238.png)
 
 ### MySQL服务开机自启动
 
@@ -318,7 +318,7 @@ systemctl status mysqld
 systemctl list-unit-files|grep mysqld
 ```
 
-![image-20240522153719685](F:\note\image\image-20240522153719685.png)
+![image-20240522153719685](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110914375.png)
 
 mysqld.service默认是enabled。
 
@@ -344,7 +344,7 @@ mysql -uroot -p
 
 密码为 jm6y;qGw.k_z
 
-![image-20240522153843267](F:\note\image\image-20240522153843267.png)
+![image-20240522153843267](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110904534.png)
 
 ### 修改密码
 
@@ -354,7 +354,7 @@ mysql -uroot -p
 ALTER USER 'root'@'localhost' IDENTIFIED BY 'root';
 ```
 
-![image-20240522154048009](F:\note\image\image-20240522154048009.png)
+![image-20240522154048009](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110904200.png)
 
 ## 设置远程连接
 
@@ -365,7 +365,7 @@ use mysql;
 select Host,User from user;
 ```
 
-![image-20240522154155625](F:\note\image\image-20240522154155625.png)
+![image-20240522154155625](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110914692.png)
 
 修改Host为通配符%， Host=% ，表示所有IP都有连接权限。
 
@@ -381,11 +381,11 @@ Host修改完成后记得执行flush privileges使配置立即生效：
 flush privileges;
 ```
 
-![image-20240522154229050](F:\note\image\image-20240522154229050.png)
+![image-20240522154229050](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110914408.png)
 
 ### 远程连接
 
-![image-20240522154306173](F:\note\image\image-20240522154306173.png)
+![image-20240522154306173](https://gitee.com/dongguo4812_admin/image/raw/master/image/202406110915831.png)
 
 
 
